@@ -20,7 +20,7 @@ const devConfig = {
       remotes: {
         mdbReactMfe: 'mdbReactMod@http://localhost:8089/remoteEntry.js',
         mdbMfe: 'mdbMod@http://localhost:8088/remoteEntry.js',
-        tableMfe: 'tableMod@http://localhost:9080/remoteEntry.js'
+        tableMfe: 'tableMod@http://localhost:9090/remoteEntry.js'
       },
       shared: packageJson.dependencies,
     }),

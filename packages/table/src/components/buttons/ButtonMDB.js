@@ -1,5 +1,5 @@
 // import { MDBBtn } from 'mdb-react-ui-kit';
-import { MDBBtn } from 'mdbReact';
+import { MDBBtn } from 'mdbReactUiKit'; // alias for 'mdb-react-ui-kit'
 import React from 'react';
 
 function ButtonMDB() {
