@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import styled from 'styled-components';
 import './App.css'
 import './assets/css/mdb.css';
 
@@ -772,11 +773,108 @@ const rows = [
   }
 ]
 
+const TableContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+`
+
+const StyledTable = styled(MDBDatatable)`
+  width: 80%;
+  padding: 20px 0;
+`
+
+const StyledLink = styled(Link)`
+  color: inherit;
+  font-family: Barlow, sans-serif;
+  font-weight: 300; 
+  font-size: .9rem;
+`
+
+const StyledButton = styled(MDBBtn)`
+  padding: 3px!important;
+  margin: 3px!important;
+`
+
+const StyledDiv = styled.div`
+  display: inline-block;
+`
+
+const StyledTrash = styled(MDBBtn)`
+  padding: 3px!important;
+  margin: 3px!important;
+  background-color: #d32f2f;
+`
+
 function App() {
   const [tableData, setTableData] = useState({
     columns: columns,
     rows: rows
   })
+
+  function addCustomButtons(users) {
+    const usersArr = [];
+    let idx = 0;
+
+    // console.log('in AddCustomButtons', company.userIds, users)
+
+    users.map((row) => {
+        usersArr.push({
+          ...row,
+          index: idx,
+          email: (
+            <StyledLink
+              to='#'
+              onClick={(e) => {
+                window.location.href = `mailto:${row.emailraw}`;
+                e.preventDefault();
+              }}
+            >
+              {row.emailraw}
+            </StyledLink>
+          ),
+          buttons: (
+            <>
+              <StyledButton
+                size='sm'
+                floating
+                className='message-btn'
+                onClick={() => console.log(`send a message to ${row.emailraw}`)}
+              >
+                <MDBIcon icon='envelope' />
+              </StyledButton>
+              <StyledButton
+                id={`edit-btn-${idx}`}
+                outline
+                size='sm'
+                floating
+                className='call-btn'
+                onClick={(event) => editUserHandler(event)}
+              >
+                <MDBIcon icon='ellipsis-h' />
+              </StyledButton>
+              <StyledTrash
+                id={`remove-btn-${idx}`}
+                bemkey={`remove-btn-${idx}`}
+                size='sm'
+                floating
+                className='remove-user-btn'
+                onClick={(event) => deleteRow(event)}
+              // onClick={(event) => printEvent(event)}
+              >
+                <MDBIcon icon="trash" />
+              </StyledTrash>
+            </>
+          ),
+        });
+
+        idx = ++idx;
+      }
+    )
+
+    return usersArr;
+  }
 
   return (
     <div className="App">
